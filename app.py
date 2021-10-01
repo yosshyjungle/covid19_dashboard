@@ -40,11 +40,11 @@ df = df[['年月日', '都道府県', '検査数', '陽性者数', '回復者数
 
 _df = df.groupby('都道府県').max().sort_values('陽性者数',ascending=False)
 
-st.header('都道府県別の累計陽性者数')
+st.header('都道府県別の累計')
 st.write(_df)
 st.bar_chart(_df['陽性者数'])
 
-st.header('全国累計陽性者数')
+st.header('全国陽性者数グラフ/日')
 df_days_all = df.loc[:, ["年月日", "都道府県", '陽性者数']]
 df_days_all = df_days_all.loc[:, ["年月日", "都道府県", '陽性者数']]
 df_days_all = df_days_all.set_index("年月日")
@@ -163,9 +163,3 @@ df_days = df_days.set_index("年月日")
 st.bar_chart(df_days["死者数/日"])
 
 st.write('Copyright © 2021 Tomoyuki Yoshikawa. All Rights Reserved.')
-
-
-
-
-
-
