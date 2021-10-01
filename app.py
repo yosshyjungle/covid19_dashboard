@@ -41,7 +41,7 @@ df = df[['年月日', '都道府県', '検査数', '陽性者数', '回復者数
 _df = df.groupby('都道府県').max().sort_values('陽性者数',ascending=False)
 
 st.header('都道府県別の累計')
-st.write(_df)
+st.dataframe(_df)
 st.bar_chart(_df['陽性者数'])
 
 st.header('全国陽性者数グラフ/日')
@@ -88,7 +88,7 @@ df3['死亡率'] = df3['死者数'] / df3['陽性者数'] * 100
 
 st.header('全国累計')
 df3 = df3.reset_index(drop=True)
-st.write(df3)
+st.dataframe(df3)
 
 st.header('都道府県別・PCR検査陽性率（降順）')
 _df2 = df2[['都道府県','検査数','陽性者数','陽性率']].sort_values('陽性率',ascending=False)
@@ -96,13 +96,13 @@ _df2 = df2[['都道府県','検査数','陽性者数','陽性率']].sort_values(
 
 _df2 = _df2.set_index("都道府県")
 
-st.write(_df2)
+st.dataframe(_df2)
 st.bar_chart(_df2['陽性率'], use_container_width=True)
 
 st.header('都道府県別・感染から復帰率（降順）')
 __df2 = df2[['都道府県', '陽性者数', '回復者数', '復帰率']].sort_values('復帰率', ascending=False)
 __df2 = __df2.set_index("都道府県")
-st.write(__df2)
+st.dataframe(__df2)
 
 st.header(f'{_prefectureNameJ}・回復者数/日')
 # df_prefecture = df.groupby('都道府県').get_group(_prefectureNameJ)
@@ -114,12 +114,11 @@ df_days = df_days.set_index("年月日")
 st.bar_chart(df_days["回復者数/日"])
 
 
-
 st.header('都道府県別・療養率（降順）')
 __df2 = df2[['都道府県', '陽性者数', '療養者数', '療養率']].sort_values('療養率', ascending=False)
 __df2 = __df2.set_index("都道府県")
-st.write(__df2)
-st.bar_chart(__df2['療養率'], use_container_width=True)
+st.dataframe(__df2)
+st.bar_chart(__df2['療養率'])
 
 st.header(f'{_prefectureNameJ}・療養者数/日')
 # df_prefecture = df.groupby('都道府県').get_group(_prefectureNameJ)
@@ -134,7 +133,7 @@ st.bar_chart(df_days["療養者数/日"])
 st.header('都道府県別・重症化率（降順）')
 __df2 = df2[['都道府県', '陽性者数', '重症者数', '重症化率']].sort_values('重症化率', ascending=False)
 __df2 = __df2.set_index("都道府県")
-st.write(__df2)
+st.dataframe(__df2)
 st.bar_chart(__df2['重症化率'], use_container_width=True)
 
 st.header(f'{_prefectureNameJ}・重症者数/日')
@@ -150,7 +149,7 @@ st.bar_chart(df_days["重症者数/日"])
 st.header('都道府県別・死亡率（降順）')
 __df2 = df2[['都道府県', '陽性者数', '死者数', '死亡率']].sort_values('死亡率', ascending=False)
 __df2 = __df2.set_index("都道府県")
-st.write(__df2)
+st.dataframe(__df2)
 st.bar_chart(__df2['死亡率'], use_container_width=True)
 
 st.header(f'{_prefectureNameJ}・死者数/日')
