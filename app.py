@@ -10,20 +10,22 @@ import datetime
 image = Image.open('covid19.png')
 st.image(image, use_column_width=True)
 
+@st.cache(allow_output_mutation=True)
 def data_loader():
+    url = 'https://toyokeizai.net/sp/visual/tko/covid19/csv/prefectures.csv'
+    df = pd.read_csv(url)
+    return df
 
+st.title('Japanese Covid-19 Dashboard')
+
+#データの整形
+def to_date(d):
+    # '{.formatの添え字:指定したい書式の型}' 02は最小幅は二桁という意味
+    return pd.to_datetime('{0:02}/{1:02}/{2:02}'.format(d['year'], d['month'], d['date']), format='%Y/%m/%d')
+
+def data_visualize():
     try:
-
-        url = 'https://toyokeizai.net/sp/visual/tko/covid19/csv/prefectures.csv'
-        df = pd.read_csv(url)
-
-        st.title('Japanese Covid-19 Dashboard')
-
-        #データの整形
-        def to_date(d):
-            # '{.formatの添え字:指定したい書式の型}' 02は最小幅は二桁という意味
-            return pd.to_datetime('{0:02}/{1:02}/{2:02}'.format(d['year'], d['month'], d['date']), format='%Y/%m/%d')
-
+        df = data_loader()
         # 日付に直す
         df['days'] = df.apply(to_date, axis=1)
         # Null値の補完
@@ -166,10 +168,9 @@ def data_loader():
         st.bar_chart(df_days["死者数/日"], use_container_width=True)
     except:
         st.error(
-            "エラーがおきているようです。（漢字で都道府県名を入力してください。）"
+            "エラーがおきているようです。都道府県名を漢字で入力してください。"
         )
 
-st.write('Copyright © 2021 Tomoyuki Yoshikawa. All Rights Reserved.')
+data_visualize()
 
-if __name__ == '__main__':
-    data_loader()
+st.write('Copyright © 2021 Tomoyuki Yoshikawa. All Rights Reserved.')
