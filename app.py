@@ -166,7 +166,7 @@ def data_loader():
         st.bar_chart(df_days["死者数/日"], use_container_width=True)
     except:
         st.error(
-            "エラーがおきているようです。"
+            "エラーがおきているようです。（漢字で都道府県名を入力してください。）"
         )
 
 st.write('Copyright © 2021 Tomoyuki Yoshikawa. All Rights Reserved.')
