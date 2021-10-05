@@ -10,7 +10,7 @@ import datetime
 image = Image.open('covid19.png')
 st.image(image, use_column_width=True)
 
-@st.cache(allow_output_mutation=True)
+# @st.cache(allow_output_mutation=True)
 def data_loader():
     url = 'https://toyokeizai.net/sp/visual/tko/covid19/csv/prefectures.csv'
     df = pd.read_csv(url)
